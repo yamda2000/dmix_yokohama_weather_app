@@ -2,9 +2,11 @@ import streamlit as st
 import requests
 import folium
 from streamlit_folium import st_folium
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import os
 from dotenv import load_dotenv
+
+JST = timezone(timedelta(hours=9))
 
 # 環境変数を読み込む
 if load_dotenv():
@@ -230,8 +232,8 @@ else:
     # 地図を表示
     st.subheader("🗺️ 地図表示")
     st_folium(m, width=None, height=600)
-    update_time = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-    st.caption(f"Last updated: {update_time}")
+    update_time = datetime.now(JST).strftime('%Y/%m/%d %H:%M:%S')
+    st.caption(f"Last updated (JST): {update_time}")
     
 
 
